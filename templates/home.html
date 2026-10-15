@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+   body {
+    background: #f4f7fb;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #212529;
+}
+
+
+    /* Navbar */
+
+
+      .profile-btn {
+        border-radius: 8px;
+        padding: 20px 18px;
+    }
+
+    /* Page Heading */
+
+    .blog-header {
+        text-align: center;
+        margin: 10px 0 30px;
+    }
+
+    .blog-header h1 {
+        font-size: 34px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 8px;
+    }
+
+    .blog-header p {
+        color: #6b7280;
+        font-size: 15px;
+    }
+
+
+    /* Posts */
+
+    .posts-container {
+        max-width: 1000px;
+        margin: 0 auto 50px;
+    }
+
+    .blog-post {
+        background: white;
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin-bottom: 22px;
+
+        border: 1px solid #e5e7eb;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+
+        transition: 0.2s ease;
+    }
+
+    .blog-post:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+    }
+
+    /* Author and date */
+
+    .post-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .author-name {
+        color: #0d6efd;
+        font-size: 17px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .post-date {
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    /* Title */
+
+    .post-heading {
+        color: #1f2937;
+        font-size: 25px;
+        font-weight: 700;
+        margin: 18px 0 12px;
+    }
+
+    /* Content */
+
+    .post-content {
+        color: #4b5563;
+        font-size: 16px;
+        line-height: 1.7;
+        white-space: pre-line;
+    }
+
+    /* Empty */
+
+    .empty-posts {
+        background: white;
+        padding: 60px 30px;
+        text-align: center;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .empty-posts h3 {
+        color: #1f2937;
+        font-weight: 700;
+    }
+
+    .empty-posts p {
+        color: #6b7280;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 768px) {
+
+        .blog-logo {
+            width: 65px;
+            height: 35px;
+        }
+
+        .blog-header h1 {
+            font-size: 28px;
+        }
+
+        .blog-post {
+            padding: 22px 20px;
+        }
+
+        .post-meta {
+            gap: 10px;
+        }
+
+        .post-heading {
+            font-size: 21px;
+        }
+
+        .post-content {
+            font-size: 15px;
+        }
+    }
+
+</style>
+
+<div class="container custom-container">
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a href="/home">
+                        <img src="{% static 'images/blogslogo.jpeg' %}"  alt="Blog" style="width: 300px; height: 90px; object-fit: contain;" >
+                    </a>
+                </li>
+            </ul>
+
+            <div class="dropdown ms-auto">
+
+                <button
+                    class="btn btn-outline-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false" >
+                    Profile
+                </button>
+
+
+                <ul class="dropdown-menu dropdown-menu-end"  aria-labelledby="dropdownMenuButton">
+
+                    <li>
+                        <a class="dropdown-item"  href="/newpost"> New Post </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="/mypost"> My Posts </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"  href="/signout"> Sign Out </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+<!-- HEADER -->
+
+<div class="blog-header">
+
+    <h1>Latest Posts</h1>
+
+    <p>
+        Discover stories, ideas and thoughts from our community.
+    </p>
+
+</div>
+
+
+<!-- POSTS -->
+
+<div class="posts-container">
+
+    {% for post in posts %}
+
+    <article class="blog-post">
+
+        <div class="post-meta">
+
+            <span class="author-name">
+                {{ post.author }}
+            </span>
+
+            <span class="post-date">
+                {{ post.date_posted|date:"F d, Y" }}
+            </span>
+
+        </div>
+
+        <hr>
+
+        <h2 class="post-heading">
+            {{ post.title }}
+        </h2>
+
+        <p class="post-content">
+            {{ post.content }}
+        </p>
+
+    </article>
+
+
+    {% empty %}
+
+    <div class="empty-posts">
+
+        <h3>No posts yet</h3>
+
+        <p>
+            Be the first person to share something with the community.
+        </p>
+
+        <a href="/newpost" class="btn btn-primary">
+            Create Your First Post
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</div>
+
+{% endblock %}

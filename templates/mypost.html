@@ -1,0 +1,360 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    /* ==============================
+       PAGE BACKGROUND
+       ============================== */
+
+    body {
+        background: #f4f7fb;
+    }
+
+
+    /* ==============================
+       NAVBAR
+       ============================== */
+.blog-navbar {
+    background: #ffffff !important;
+    border-radius: 12px;
+    padding: 12px 22px;
+    margin-bottom: 35px;
+    min-height: 70px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.blog-logo {
+    width: 180px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.profile-btn {
+    border-radius: 8px;
+    padding: 8px 18px;
+}
+
+    /* ==============================
+       PAGE HEADER
+       ============================== */
+
+    .my-posts-header {
+        text-align: center;
+        margin: 25px 0 35px;
+    }
+
+    .my-posts-header h1 {
+        font-size: 34px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 8px;
+    }
+
+    .my-posts-header p {
+        color: #6b7280;
+        font-size: 15px;
+    }
+
+
+    /* ==============================
+       POSTS CONTAINER
+       ============================== */
+
+    .my-posts-container {
+        max-width: 1000px;
+        margin: 0 auto 50px;
+    }
+
+
+    /* ==============================
+       POST CARD
+       ============================== */
+
+    .my-post-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin-bottom: 22px;
+
+        border: 1px solid #e5e7eb;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+
+        transition: all 0.2s ease;
+    }
+
+    .my-post-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+    }
+
+
+    /* ==============================
+       POST META
+       ============================== */
+
+    .my-post-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .my-post-author {
+        color: #0d6efd;
+        font-size: 17px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .my-post-date {
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+
+    /* ==============================
+       POST TITLE
+       ============================== */
+
+    .my-post-title {
+        color: #1f2937;
+        font-size: 25px;
+        font-weight: 700;
+        margin: 18px 0 12px;
+    }
+
+
+    /* ==============================
+       POST CONTENT
+       ============================== */
+
+    .my-post-content {
+        color: #4b5563;
+        font-size: 16px;
+        line-height: 1.7;
+        white-space: pre-line;
+        margin-bottom: 5px;
+    }
+
+
+    /* ==============================
+       NO POSTS
+       ============================== */
+
+    .no-posts {
+        background: #ffffff;
+        padding: 60px 30px;
+        text-align: center;
+        border-radius: 16px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .no-posts h3 {
+        color: #1f2937;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .no-posts p {
+        color: #6b7280;
+        margin-bottom: 20px;
+    }
+
+    .create-post-btn {
+        border-radius: 9px;
+        padding: 10px 22px;
+        font-weight: 600;
+    }
+
+
+    /* ==============================
+       MOBILE
+       ============================== */
+
+    @media (max-width: 768px) {
+
+        .blog-logo {
+            width: 65px;
+            height: 35px;
+        }
+
+        .my-posts-header h1 {
+            font-size: 28px;
+        }
+
+        .my-post-card {
+            padding: 22px 20px;
+        }
+
+        .my-post-meta {
+            gap: 10px;
+        }
+
+        .my-post-author {
+            font-size: 15px;
+        }
+
+        .my-post-date {
+            font-size: 12px;
+        }
+
+        .my-post-title {
+            font-size: 21px;
+        }
+
+        .my-post-content {
+            font-size: 15px;
+        }
+
+    }
+
+</style>
+
+<div class="container custom-container">
+
+<!-- ==============================
+     NAVBAR
+     ============================== -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a href="/home">
+                        <img src="{% static 'images/blogslogo.jpeg' %}"  alt="Blog" style="width: 300px; height: 90px; object-fit: contain;" >
+                    </a>
+                </li>
+            </ul>
+
+            <div class="dropdown ms-auto">
+
+                <button
+                    class="btn btn-outline-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false" >
+                    Profile
+                </button>
+
+
+                <ul class="dropdown-menu dropdown-menu-end"  aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="dropdown-item" href="/home" > Home </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"  href="/newpost"> New Post </a>
+                    </li>
+
+
+                    <li>
+                        <a class="dropdown-item"  href="/signout"> Sign Out </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<!-- ==============================
+     PAGE HEADER
+     ============================== -->
+
+<div class="my-posts-header">
+
+    <h1>My Posts</h1>
+
+    <p>
+        Manage and view all the posts you have created.
+    </p>
+
+</div>
+
+
+<!-- ==============================
+     POSTS
+     ============================== -->
+
+<div class="my-posts-container">
+
+    {% for post in posts %}
+
+    <article class="my-post-card">
+
+
+        <div class="my-post-meta">
+
+            <span class="my-post-author">
+                {{ post.author }}
+            </span>
+
+            <span class="my-post-date">
+                {{ post.date_posted|date:"F d, Y" }}
+            </span>
+
+        </div>
+
+
+        <hr>
+
+
+        <h2 class="my-post-title">
+            {{ post.title }}
+        </h2>
+
+
+        <p class="my-post-content">
+            {{ post.content }}
+        </p>
+
+
+    </article>
+
+
+    {% empty %}
+
+    <div class="no-posts">
+
+        <h3>You haven't created any posts yet.</h3>
+
+        <p>
+            Start sharing your thoughts with the community.
+        </p>
+
+        <a
+            href="/newpost/"
+            class="btn btn-primary create-post-btn">
+
+            Create New Post
+
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</div>
+
+{% endblock %}
